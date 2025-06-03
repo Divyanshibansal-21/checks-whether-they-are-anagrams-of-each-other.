@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LEN 100
+
+int areAnagrams(const char *str1, const char *str2) {
+    // If lengths are different, they can't be anagrams
+    if (strlen(str1) != strlen(str2)) {
+        return 0;
+    }
+
+    int count[26] = {0}; // Array to store character counts
+
+    // Increment count for characters in str1, decrement for str2
+    for (int i = 0; str1[i] != '\0'; i++) {
+        count[str1[i] - 'a']++;
+        count[str2[i] - 'a']--;
+    }
+
+    // If all counts are zero, strings are anagrams
+    for (int i = 0; i < 26; i++) {
+        if (count[i] != 0) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+int main() {
+    char str1[MAX_LEN + 1], str2[MAX_LEN + 1];
+
+    printf("Input:\nString 1: ");
+    scanf("%100s", str1);
+
+    printf("String 2: ");
+    scanf("%100s", str2);
+
+    if (areAnagrams(str1, str2)) {
+        printf("The strings are anagrams.\n");
+    } else {
+        printf("The strings are not anagrams.\n");
+    }
+
+    return 0;
+}
